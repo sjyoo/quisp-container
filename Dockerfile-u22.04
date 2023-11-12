@@ -60,16 +60,9 @@ RUN python3 -m pip install --user --upgrade numpy pandas matplotlib scipy seabor
 RUN apt-get install -y mpi-default-dev
 RUN apt-get install -y --reinstall xdg-utils wget
 RUN apt-get install -y unzip
+
 # Manually install osg from scratch
 WORKDIR /usr/local
-
-# Install cmake (needed to build osg)
-# RUN wget https://github.com/Kitware/CMake/releases/download/v3.28.0-rc1/cmake-3.28.0-rc1.tar.gz \
-# 	&& tar xvfz cmake-3.28.0-rc1.tar.gz \
-#	&& cd cmake-3.28.0-rc1 \
-#	&& ./bootstrap \
-#	&& make \
-#	&& make install
 
 # Get and compile openscenegraph
 WORKDIR /usr/local
@@ -79,9 +72,6 @@ RUN wget https://github.com/openscenegraph/OpenSceneGraph/archive/refs/heads/mas
 	&& cmake . \
 	&& make \
 	&& make install
-
-# Now, install development packages
-# RUN apt-get install -y libopenscenegraph-dev
 
 ENV OMPI_MCA_btl_vader_single_copy_mechanism "none"
 ENV OMPI_ALLOW_RUN_AS_ROOT 1
